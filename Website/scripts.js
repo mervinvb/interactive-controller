@@ -1,7 +1,7 @@
 const ws = new WebSocket("ws://localhost:8008/");
 
 ws.addEventListener("open", () => {
-    console.log("I hath conneceteth poop");
+    console.log("I have connected");
 });
 
 ws.addEventListener("close", () => {
