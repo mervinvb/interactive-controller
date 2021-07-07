@@ -17,6 +17,13 @@ var count4 = 0
 var count5 = 0
 var count6 = 0
 
+var count1_rigged = 0
+var count2_rigged = 0
+var count3_rigged = 0
+var count4_rigged = 0
+var count5_rigged = 0
+var count6_rigged = 0
+
 var current_question = ''
 var index = ''
 var beating = false
@@ -67,7 +74,7 @@ wss.on("connection", ws => {
               break;
 
             case 'controller':
-              if (parsed_message.password == "marv") {
+              if (parsed_message.password == "tkp") {
 
                 index = connected_users.indexOf(ws.id);
                 if (index > -1) {
@@ -120,6 +127,33 @@ wss.on("connection", ws => {
           console.log("Received vote!")
           checkvotes()
           break;
+
+        case 'rig':
+
+          switch (parsed_message.option) {
+            case 1:
+              count1_rigged += parsed_message.amount
+              break;
+            case 2:
+              count2_rigged += parsed_message.amount
+              break;
+            case 3:
+              count3_rigged += parsed_message.amount
+              break;
+            case 4:
+              count4_rigged += parsed_message.amount
+              break;
+            case 5:
+              count5_rigged += parsed_message.amount
+              break;
+            case 6:
+              count6_rigged += parsed_message.amount
+              break;
+          }
+
+          checkvotes()
+
+          break;
               
       }
   })
@@ -170,12 +204,12 @@ function checkvotes() {
 
   var to_send = {}
   to_send ["type"] = "count"
-  to_send ["count1"] = count1
-  to_send ["count2"] = count2
-  to_send ["count3"] = count3
-  to_send ["count4"] = count4
-  to_send ["count5"] = count5
-  to_send ["count6"] = count6
+  to_send ["count1"] = count1 + count1_rigged
+  to_send ["count2"] = count2 + count2_rigged
+  to_send ["count3"] = count3 + count3_rigged
+  to_send ["count4"] = count4 + count4_rigged
+  to_send ["count5"] = count5 + count5_rigged
+  to_send ["count6"] = count6 + count6_rigged
   
   wss.broadcast(JSON.stringify(to_send),'host');
   
@@ -224,6 +258,14 @@ wss.random_sound = function random_sound() {
 }
 
 wss.reset_count = function reset_count() {
+
+  count1_rigged = 0
+  count2_rigged = 0
+  count3_rigged = 0
+  count4_rigged = 0
+  count5_rigged = 0
+  count6_rigged = 0
+
   wss.clients.forEach(function each(client) {
     if (!(client.id == 'host')){
       client.state = "Undefined"

@@ -1,4 +1,5 @@
-const ws = new WebSocket("ws://link-to-server-goes-here");
+const ws = new WebSocket("ws://tkp-voorstelling.herokuapp.com/");
+//const ws = new WebSocket("ws://192.168.178.12:8008");
 
 document.getElementById("button1_div").style.display = "none";
 document.getElementById("button2_div").style.display = "none";

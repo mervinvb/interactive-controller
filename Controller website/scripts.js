@@ -1,5 +1,5 @@
-const ws = new WebSocket("ws://link-to-server-goes-here/");
-
+const ws = new WebSocket("ws://tkp-voorstelling.herokuapp.com/");
+//const ws = new WebSocket("ws://192.168.178.12:8008");
 var allowed = false
 document.getElementById("buttons").style.display = "none";
 
@@ -53,6 +53,46 @@ function button2() {
     {
       "type" : "command",
       "message" : "backwards"
+    }
+  ));
+}
+
+function button3() {
+  ws.send(JSON.stringify(
+    {
+      "type" : "rig",
+      "option" : 1,
+      "amount" : 1
+    }
+  ));
+}
+
+function button4() {
+  ws.send(JSON.stringify(
+    {
+      "type" : "rig",
+      "option" : 2,
+      "amount" : 1
+    }
+  ));
+}
+
+function button5() {
+  ws.send(JSON.stringify(
+    {
+      "type" : "rig",
+      "option" : 1,
+      "amount" : -1
+    }
+  ));
+}
+
+function button6() {
+  ws.send(JSON.stringify(
+    {
+      "type" : "rig",
+      "option" : 2,
+      "amount" : -1
     }
   ));
 }
